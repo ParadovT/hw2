@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="co2123.hw2.PreparationTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-12-15T19:23:18" hostname="Noels-MacBook-Air.local" time="0.01">
+  <properties/>
+  <testcase name="userDefined()" classname="co2123.hw2.PreparationTest" time="0.01">
+    <failure message="java.lang.AssertionError: No username was specified in application.properties." type="java.lang.AssertionError">java.lang.AssertionError: No username was specified in application.properties.
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:37)
+	at org.springframework.test.util.AssertionErrors.assertTrue(AssertionErrors.java:70)
+	at org.springframework.test.util.AssertionErrors.assertNotNull(AssertionErrors.java:106)
+	at co2123.hw2.PreparationTest.userDefined(PreparationTest.java:15)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

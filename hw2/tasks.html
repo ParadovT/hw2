@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homework 2: Tasks for np347</title>
+</head>
+
+<body>
+<h1>Homework 2: Tasks for np347</h1>
+
+<p>Your personal task is to develop a system for a race, cars and their drivers.</p>
+
+<h2>Task 1: Configuration [12 marks]</h2>
+<ol>
+    <li>Add all the necessary dependencies for connecting to a MySQL database and showing JSPs. [7 marks]</li>
+    <li>Configure the application to use a MySQL database (username, password, etc.) and to print SQL statements on the console. [5 marks]</li>
+</ol>
+
+<h2>Task 2: Domain Classes [15 marks]</h2>
+<p>Create class <code>co2123.hw2.model.Race</code>. With the following private fields:
+<ol>
+    <li><code>int id</code></li>
+    <li><code>String city</code></li>
+    <li><code>List &ltCar&gt cars</code></li>
+    <li><code>Car fastest</code></li>
+</ol>
+Generate necessary getters and setters. [3 marks]
+</p>
+<p>Create class <code>co2123.hw2.model.Car</code>. With the following private fields:
+<ul>
+    <li><code>String model</code></li>
+    <li><code>List &ltRace&gt races</code></li>
+    <li><code>List &ltDriver&gt drivers</code></li>
+    <li><code>Driver coach</code></li>
+</ul>
+Generate necessary getters and setters. [3 marks]
+</p>
+<p>Create class <code>co2123.hw2.model.Driver</code>. With the following private fields:
+<ol>
+    <li><code>int identifier</code></li>
+    <li><code>int age</code></li>
+</ol>
+Generate necessary getters and setters. [3 marks]
+</p>
+<p>Generate toString() methods for: [6 marks]
+<ul>
+    <li>Driver which prints out the <code>identifier</code> and <code>age</code> of this class.</li>
+    <li>Car which prints out the <code>model</code>, <code>drivers</code>, and <code>coach</code> of this class.</li>
+    <li>Race which prints out the <code>id</code>, <code>city</code>, <code>cars</code>, and <code>fastest</code> of this class.</li>
+</ul>
+</p>
+<p>To format your toString(), integers should be displayed as id=X and Strings as model='X'. You can check your formatting using Task2Test.java. IntelliJ IDEA's in-built toString() generator should follow this format too. </p><p>NOTE: You must have created /listRace, /listCar, and /listDriver from Task 5 as well as have at least one of each object stored in your database for the toString() tests to work.</p>
+
+<h2>Task 3: JPA Annotations [25 marks]</h2>
+<p>Annotate the classes in <code>co2123.hw2.model</code> based on these statements:
+<ul>
+    <li>Add the appropriate annotations so <code>Race</code>, <code>Car</code>, and <code>Driver</code> become tables in your database. [3 marks]</li>
+    <ul>
+        <li>Their primary keys should be <code>id</code>, <code>model</code>, and <code>identifier</code> respectively. [3 marks]</li>
+        <li>The primary keys of <code>Race</code> and <code>Driver</code> should be generated automatically. [2 marks]</li>
+    </ul>
+    <li>A <code>race</code> can have many <code>cars</code> and a <code>car</code> can belong to many <code>races</code>. The relationship between them is bidirectional. Use mappedBy to indicate this. [2 marks]</li>
+    <li>A <code>car</code> can have multiple <code>drivers</code> but one <code>driver</code> can only belong to one <code>car</code>. Use a join column as well as another annotation to indicate this. [2 marks]</li>
+    <li>A <code>car</code> can have only one <code>coach</code> which belongs to one <code>car</code>. [2 marks]</li>
+    <li>Many <code>cars</code> may have one <code>fastest</code>. This <code>fastest</code> can belong to multiple <code>cars</code>. [2 marks]</li>
+    <li>If you save a <code>race</code>, the <code>cars</code> in the list of <code>cars</code> should be saved too. [2 marks]</li>
+    <li>If a <code>car</code> is deleted, all its <code>drivers</code> should be deleted too. [2 marks].</li>
+    <li>If a <code>car</code> is loaded, all its <code>drivers</code> should be loaded too. [2 marks]</li>
+</ul>
+</p>
+<p>Please <strong>do not</strong> manually override the column names by using, for example, (name="NewName") on a @JoinColumn annotation.</p>
+<p>Create CRUD repositories for each of your model classes inside the package <code>co2123.hw2.repo</code> called <code>RaceRepository</code>, <code>CarRepository</code>, and <code>DriverRepository</code>. [3 marks]</p>
+
+<h2>Task 4: CRUD Repository Methods [20 marks]</h2>
+<p>
+<ul>
+    <li>Add a method in <code>RaceRepository</code> which finds the <code>races</code> by <code>city</code>. [5 marks]</li>
+    <li>Add a method in <code>RaceRepository</code> which finds the <code>races</code> by the <code>model</code> of their <code>fastest</code>. [5 marks]</li>
+    <li>Add a method in <code>CarRepository</code> which finds the <code>cars</code> by <code>model</code>. [5 marks]</li>
+    <li>Add a method in <code>DriverRepository</code> which finds the <code>drivers</code> by <code>age</code>. [5 marks]</li>
+</ul>
+</p>
+<p>All CRUD repository methods <strong>must</strong> start with findBy (and not findAllBy, findOneBy, findRacesBy etc.)</p>
+
+<h2>Task 5: Displaying Data (Model, View, and Controller) [28 marks]</h2>
+<p>
+<ul>
+    <li>In <code>co2123.hw2.HW2Application</code>, create and store at one instance of every class from <code>co2123.hw2.model</code>. [9 marks]</li>
+    <ul>
+        <li>You will need to use the repositories you have created.</li>
+        <li>You must use implement CommandLineRunner and override its run method in order to create these instances.</li>
+        <li>The database should contain one row on each of the tables with no null or empty records.</li>
+    </ul>
+    <li>Create the controller <code>co2123.hw2.controller.ListController</code> which has three methods: /listRace, /listCar, and /listDriver [5 marks]</li>
+    <ul>
+        <li>They all return the JSP <code>/src/main/webapp/WEB-INF/views/list.jsp</code> </li>
+        <li>Each method should list all objects (their toString() representations) from the database on the JSP. For example, /listRace lists all the races in the database, /listCar lists all the cars, and /listDriver lists all the drivers. [4 marks]</li>
+        <li>The model attribute in each method which contains the list of races/cars/drivers should be called <code>data</code>.</li>
+        <li>Use a forEach loop on <code>list.jsp</code> to display the data.</li>
+    </ul>
+    <li>Create the controller <code>co2123.hw2.controller.DeleteController</code> [1 mark]</li>
+    <li>For each class in package <code>co2123.hw2.model</code>, add a controller method to delete an instance from the database and redirect to the URL <code>http://localhost:8080/</code></li>
+    <ul>
+        <li>For class <code>Race</code>, the request http://localhost:8080/deleteRace?id=5 should delete the race with the primary key id from the database. [3 marks]</li>
+        <li>For class <code>Car</code>, the request http://localhost:8080/deleteCar?model=Example should delete the car with the primary key model from the database. [3 marks]</li>
+        <ul>
+            <li>HINT: You must delete all references to this car in the race.</li>
+        </ul>
+        <li>For class <code>Driver</code>, the request http://localhost:8080/deleteDriver?identifier=2 should delete the driver with the primary key identifier from the database. [3 marks]</li>
+    </ul>
+</ul>
+</p>
+</body>
+</html>

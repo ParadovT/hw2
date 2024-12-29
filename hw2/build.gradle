@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.3'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'war'
 }
 
 group = 'co2123'
@@ -17,18 +18,41 @@ repositories {
     mavenCentral()
 }
 
+
+
 dependencies {
+    // Spring Boot dependencies
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // MySQL Driver
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.5'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+    runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+
+    // JSP Support
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.5'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:2.0.0'
+    runtimeOnly 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'
+
+    // Apache Commons CSV (for CSV file handling)
+    implementation 'org.apache.commons:commons-csv:1.9.0'
+
+    // Spring Boot DevTools (optional for hot-reloading)
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation 'mysql:mysql-connector-java:8.0.33'
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper:10.1.5'
-    implementation 'javax.servlet:jstl:1.2'
 
-    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.9.0'
+
 }
+
+
+
 
 tasks.named('test') {
     useJUnitPlatform()
